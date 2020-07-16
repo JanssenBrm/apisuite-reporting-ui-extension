@@ -1,0 +1,70 @@
+{
+  "name": "apisuite-extension-ui-example",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "module": "build/index.esm.js",
+  "files": [
+    "build"
+  ],
+  "types": "build/index.d.ts",
+  "description": "A skeleton to create your own React component library using Rollup, TypeScript and Sass",
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -w -c",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarveyD/react-component-library.git"
+  },
+  "keywords": [
+    "React",
+    "Component",
+    "Library",
+    "Rollup",
+    "Typescript",
+    "Sass"
+  ],
+  "author": "Harvey Delaney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HarveyD/react-component-library/issues"
+  },
+  "homepage": "https://github.com/HarveyD/react-component-library#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "i18next": ">=19.0.1",
+    "react-i18next": ">=11.2.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.2",
+    "@types/jest": "^24.0.24",
+    "@types/react": "^16.9.12",
+    "@types/react-dom": "^16.9.8",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
+    "i18next": "^19.6.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.7.0",
+    "rollup": "^1.27.4",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "sass-loader": "^8.0.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
+  }
+}
