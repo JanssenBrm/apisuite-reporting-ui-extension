@@ -4,24 +4,31 @@
 
 This repo contains an APISuite Portal UI Extension skeleton for demonstration purposes.
 
-## Stack
-
-- [Rollup](https://github.com/rollup/rollup)
-- [Sass](https://sass-lang.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-
-## Acknowledgments
-
-The repo is based on a stripped-down version of a React Component Library project skeleton. More info:
-
-* [Repo](https://github.com/HarveyD/react-component-library)
-* [Blog post](https://blog.harveydelaney.com/creating-your-own-react-component-library/)
-
-It also features:
-
-- [Jest](https://jestjs.io/) and [React Testing Library](https://github.com/testing-library/react-testing-library) enabling testing of the components
+For more high-level documentation regarding the UI Extensions, refer to the [UI Extensions documentation in Confluence](https://cloudoki.atlassian.net/wiki/spaces/AS/pages/275054593/UI+Extensions).
 
 ## Development
+
+### Hooks
+
+Extensions hook into the APISuite Portal's rendering process by implementing specific interfaces for each type of hook:
+
+#### Menu
+
+This hook allows Extensions to add entries to the different menus of the Portal.
+
+Check file `hooks/menu.ts` for an example.
+
+#### Pages
+
+This hook allows adding new pages with a given URI to the Portal
+
+Check file `hooks/pages.ts` for an example.
+
+#### Sections
+
+This hook allows adding a new section/component to certain pre-defined sections of the Portal.
+
+Check file `hooks/sections.ts` for an example.
 
 ### Testing
 
@@ -96,3 +103,21 @@ export const ImageComponent = () => (
   </div>
 );
 ```
+
+## Stack
+
+- [Rollup](https://github.com/rollup/rollup)
+- [Sass](https://sass-lang.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+## Acknowledgments
+
+The repo is based on a stripped-down version of a React Component Library project skeleton. More info:
+
+* [Repo](https://github.com/HarveyD/react-component-library)
+* [Blog post](https://blog.harveydelaney.com/creating-your-own-react-component-library/)
+
+It also features:
+
+- [Jest](https://jestjs.io/) and [React Testing Library](https://github.com/testing-library/react-testing-library) enabling testing of the components
+
