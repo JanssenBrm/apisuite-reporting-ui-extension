@@ -1,7 +1,9 @@
+import { HookPages, PageEntry } from "apisuite-extension-ui-types";
+
 import About from "pages/About";
 import Authenticated from "pages/Authenticated";
 
-const pagesConfig = [
+const pagesConfig: PageEntry[] = [
   {
     path: "/extensions/about",
     exact: true,
@@ -15,6 +17,8 @@ const pagesConfig = [
   },
 ];
 
-export default function hookPages() {
+const hookPages: HookPages = () => {
   return pagesConfig;
-}
+};
+
+export default hookPages;

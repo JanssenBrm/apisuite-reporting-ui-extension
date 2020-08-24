@@ -1,5 +1,13 @@
+import { Hooks } from "apisuite-extension-ui-types";
+
 import menu from "./menu";
 import pages from "./pages";
-import section from "./section";
+import sections from "./sections";
 
-export { menu, pages, section };
+const hooks: Hooks = {
+  menu,
+  pages,
+  sections,
+};
+
+export default hooks;
