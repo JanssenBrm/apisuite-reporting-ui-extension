@@ -1,12 +1,17 @@
-import baseConfig from "config";
+import baseConfig, { ExtensionConfig } from "config";
 
 let values = {
   ...baseConfig,
 };
 
-const config = () => values;
+interface Config {
+  (): ExtensionConfig;
+  set: (conf: any) => void;
+}
 
-config.set = (conf) => {
+const config: Config = () => values;
+
+config.set = (conf: {}) => {
   values = {
     ...values,
     ...conf,

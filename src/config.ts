@@ -1,4 +1,8 @@
-const baseConfig = {
+export type ExtensionConfig = {
+  someKey: string;
+};
+
+const baseConfig: ExtensionConfig = {
   someKey: "Base Value",
 };
 
