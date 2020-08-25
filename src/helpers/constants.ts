@@ -1,3 +1,3 @@
-import { name } from "../../package.json";
+import { name } from '../../package.json'
 
-export const EXT_NAME = name;
+export const EXT_NAME = name

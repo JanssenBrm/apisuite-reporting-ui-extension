@@ -1,9 +1,9 @@
 export type ExtensionConfig = {
-  someKey: string;
-};
+  someKey: string
+}
 
 const baseConfig: ExtensionConfig = {
-  someKey: "Base Value",
-};
+  someKey: 'Base Value',
+}
 
-export default baseConfig;
+export default baseConfig

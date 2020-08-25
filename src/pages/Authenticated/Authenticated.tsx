@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 const Authenticated: React.FC = () => (
   <div
     style={{
-      minHeight: "100%",
-      backgroundColor: "burlywood",
-      padding: "300px 16px 0 16px",
+      minHeight: '100%',
+      backgroundColor: 'burlywood',
+      padding: '300px 16px 0 16px',
     }}
   >
     <h1>Authenticated extension page</h1>
@@ -14,6 +14,6 @@ const Authenticated: React.FC = () => (
       authenticated users.
     </p>
   </div>
-);
+)
 
-export default Authenticated;
+export default Authenticated

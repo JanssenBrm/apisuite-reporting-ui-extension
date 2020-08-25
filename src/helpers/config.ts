@@ -1,21 +1,21 @@
-import baseConfig, { ExtensionConfig } from "config";
+import baseConfig, { ExtensionConfig } from 'config'
 
 let values = {
   ...baseConfig,
-};
-
-interface Config {
-  (): ExtensionConfig;
-  set: (conf: any) => void;
 }
 
-const config: Config = () => values;
+interface Config {
+  (): ExtensionConfig
+  set: (conf: Record<string, unknown>) => void
+}
 
-config.set = (conf: {}) => {
+const config: Config = () => values
+
+config.set = (conf: Record<string, unknown>) => {
   values = {
     ...values,
     ...conf,
-  };
-};
+  }
+}
 
-export default config;
+export default config
