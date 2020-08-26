@@ -1,12 +1,9 @@
 import { Extension } from 'apisuite-extension-ui-types'
+import { ExtensionConfig } from "./config";
 import './translations'
 import hooks from './hooks'
 import configHelper from './helpers/config'
 import { name, version } from '../package.json'
-
-type ExampleExtensionConfig = {
-  someKey?: string
-}
 
 class ExampleExtension extends Extension {
   static info = {
@@ -14,11 +11,11 @@ class ExampleExtension extends Extension {
     version,
   }
 
-  public config: ExampleExtensionConfig
+  public config: ExtensionConfig
 
   hooks = hooks
 
-  constructor(config?: ExampleExtensionConfig) {
+  constructor(config?: ExtensionConfig) {
     super(config)
     configHelper.set(config)
   }
