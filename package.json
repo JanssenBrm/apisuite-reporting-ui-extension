@@ -13,6 +13,7 @@
     "lint": "tsc --noEmit && eslint \"src/{,**/}*.ts{,x}\"",
     "build": "rollup -c",
     "build:watch": "rollup -w -c",
+    "version": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepublishOnly": "npm run build",
