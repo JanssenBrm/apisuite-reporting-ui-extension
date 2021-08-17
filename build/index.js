@@ -2,7 +2,6 @@
 
 var i18next = require('i18next');
 var React = require('react');
-var reactI18next = require('react-i18next');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -213,30 +212,7 @@ var hookPages = function () {
     return pagesConfig;
 };
 
-var baseConfig = {
-    someKey: 'Base Value',
-};
-
-var values = __assign({}, baseConfig);
-var config = function () { return values; };
-config.set = function (conf) {
-    values = __assign(__assign({}, values), conf);
-};
-
-var AdditionalInfo = function () {
-    var t = reactI18next.useTranslation(EXT_NAME)[0];
-    return (React__default['default'].createElement("div", { style: { border: '1px solid #ccc', color: 'white' } },
-        React__default['default'].createElement("h1", null, t('homepage.extensionSection.title')),
-        React__default['default'].createElement("p", null, t('homepage.extensionSection.paragraph')),
-        React__default['default'].createElement("p", null, t('homepage.extensionSection.configValue', {
-            value: config().someKey,
-        }))));
-};
-
-var _a$1;
-var sections = (_a$1 = {},
-    _a$1[Sections.HomepagePrecontent] = AdditionalInfo,
-    _a$1);
+var sections = {};
 var hookSections = function (section, props) {
     var Component = sections[section];
     if (Component) {
@@ -249,6 +225,16 @@ var hooks = {
     menu: hookMenu,
     pages: hookPages,
     sections: hookSections,
+};
+
+var baseConfig = {
+    someKey: 'Base Value',
+};
+
+var values = __assign({}, baseConfig);
+var config = function () { return values; };
+config.set = function (conf) {
+    values = __assign(__assign({}, values), conf);
 };
 
 var ReportingExtension = /** @class */ (function (_super) {

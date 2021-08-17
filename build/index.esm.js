@@ -1,6 +1,5 @@
 import i18next from 'i18next';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -206,30 +205,7 @@ var hookPages = function () {
     return pagesConfig;
 };
 
-var baseConfig = {
-    someKey: 'Base Value',
-};
-
-var values = __assign({}, baseConfig);
-var config = function () { return values; };
-config.set = function (conf) {
-    values = __assign(__assign({}, values), conf);
-};
-
-var AdditionalInfo = function () {
-    var t = useTranslation(EXT_NAME)[0];
-    return (React.createElement("div", { style: { border: '1px solid #ccc', color: 'white' } },
-        React.createElement("h1", null, t('homepage.extensionSection.title')),
-        React.createElement("p", null, t('homepage.extensionSection.paragraph')),
-        React.createElement("p", null, t('homepage.extensionSection.configValue', {
-            value: config().someKey,
-        }))));
-};
-
-var _a$1;
-var sections = (_a$1 = {},
-    _a$1[Sections.HomepagePrecontent] = AdditionalInfo,
-    _a$1);
+var sections = {};
 var hookSections = function (section, props) {
     var Component = sections[section];
     if (Component) {
@@ -242,6 +218,16 @@ var hooks = {
     menu: hookMenu,
     pages: hookPages,
     sections: hookSections,
+};
+
+var baseConfig = {
+    someKey: 'Base Value',
+};
+
+var values = __assign({}, baseConfig);
+var config = function () { return values; };
+config.set = function (conf) {
+    values = __assign(__assign({}, values), conf);
 };
 
 var ReportingExtension = /** @class */ (function (_super) {
