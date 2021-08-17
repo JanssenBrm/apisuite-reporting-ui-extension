@@ -57,6 +57,7 @@
     "apisuite-extension-ui-types": "github:Cloudoki/apisuite-extension-ui-types#v1.0.1"
   },
   "devDependencies": {
+    "@apisuite/fe-base": "1.0.0-next.7",
     "@babel/core": "^7.11.4",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -91,6 +92,7 @@
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.3",
     "rollup-plugin-postcss": "^3.1.6",
+    "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript2": "^0.27.2",
     "sass-loader": "^10.0.1",
     "ts-jest": "^26.2.0",

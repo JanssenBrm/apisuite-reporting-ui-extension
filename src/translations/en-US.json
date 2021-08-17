@@ -1,9 +1,7 @@
 {
-  "homepage": {
-    "extensionSection": {
-      "title": "Extension Component",
-      "paragraph": "This section was injected by an extension",
-      "configValue": "Configuration value: {{ value }}"
+  "extensions": {
+    "reporting": {
+      "user.title": "Reporting - Translated"
     }
   }
 }

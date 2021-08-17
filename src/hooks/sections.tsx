@@ -1,6 +1,5 @@
 import React from 'react'
-import { Sections, HookSections } from 'apisuite-extension-ui-types'
-import AdditionalInfo from 'components/AdditionalInfo'
+import { HookSections } from 'apisuite-extension-ui-types'
 
 type SectionsConfig = {
   [section: string]: React.FC

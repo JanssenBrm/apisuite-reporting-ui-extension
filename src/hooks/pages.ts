@@ -1,19 +1,19 @@
 import { HookPages, PageEntry } from 'apisuite-extension-ui-types'
-
-import About from 'pages/About'
+import ReportingUser from 'pages/ReportingUser'
+import ReportingService from 'pages/ReportingService'
 
 const pagesConfig: PageEntry[] = [
   {
     auth: true,
     path: '/reporting',
     exact: true,
-    component: About,
+    component: ReportingUser,
   },
   {
     auth: true,
     path: '/reporting/services',
     exact: true,
-    component: About,
+    component: ReportingService,
   },
 ]
 
