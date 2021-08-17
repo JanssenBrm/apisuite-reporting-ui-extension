@@ -5,7 +5,7 @@ import hooks from './hooks'
 import configHelper from './helpers/config'
 import { name, version } from '../package.json'
 
-class ExampleExtension extends Extension {
+class ReportingExtension extends Extension {
   static info = {
     name,
     version,
@@ -21,4 +21,4 @@ class ExampleExtension extends Extension {
   }
 }
 
-export default ExampleExtension
+export default ReportingExtension

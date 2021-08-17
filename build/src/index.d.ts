@@ -1,7 +1,7 @@
 import { Extension } from 'apisuite-extension-ui-types';
 import { ExtensionConfig } from "./config";
 import './translations';
-declare class ExampleExtension extends Extension {
+declare class ReportingExtension extends Extension {
     static info: {
         name: string;
         version: string;
@@ -10,4 +10,4 @@ declare class ExampleExtension extends Extension {
     hooks: import("apisuite-extension-ui-types").Hooks;
     constructor(config?: ExtensionConfig);
 }
-export default ExampleExtension;
+export default ReportingExtension;

@@ -135,10 +135,11 @@ var Extension = /** @class */ (function () {
     return Extension;
 }());
 
-var name = "apisuite-extension-ui-example";
-var version = "1.0.1";
+var name = "@vito/apisuite-reporting-ui-extension";
+var version = "1.0.2";
 
 var EXT_NAME = name;
+var BASE_URI = '/reporting';
 
 var homepage = {
 	extensionSection: {
@@ -167,39 +168,11 @@ i18next.addResourceBundle('pt', EXT_NAME, ptPT);
 
 var _a;
 var menuConfig = (_a = {},
-    _a[Menus.FooterDashboard] = [
-        {
-            label: 'About Extensions',
-            route: '/extensions/about',
-            title: 'About Extensions',
-        },
-    ],
-    _a[Menus.HeaderAnonymousMain] = [
-        {
-            label: 'About Extensions',
-            route: '/extensions/about',
-            title: 'About Extensions',
-        },
-    ],
-    _a[Menus.HeaderAuthenticatedMain] = [
-        {
-            label: 'Extension Authenticated',
-            route: '/extensions/authenticated',
-            title: 'Extension Authenticated',
-        },
-    ],
     _a[Menus.HeaderAuthenticatedDashboard] = [
         {
-            label: 'About Dashboard',
-            route: '/about-dashboard',
-            title: 'About Dashboard',
-        },
-    ],
-    _a[Menus.HeaderAuthenticatedProfile] = [
-        {
-            label: 'About Profile',
-            route: '/about-profile',
-            title: 'About Profile',
+            label: 'Reporting',
+            route: BASE_URI,
+            title: 'Reporting',
         },
     ],
     _a);
@@ -215,25 +188,18 @@ var About = function () { return (React.createElement("div", { style: {
     React.createElement("h1", null, "About Extensions"),
     React.createElement("p", null, "This page was dynamically added by an extensions."))); };
 
-var Authenticated = function () { return (React.createElement("div", { style: {
-        minHeight: '100%',
-        backgroundColor: 'burlywood',
-        padding: '300px 16px 0 16px',
-    } },
-    React.createElement("h1", null, "Authenticated extension page"),
-    React.createElement("p", null, "This page was dynamically added by an extensions and it is only visible to authenticated users."))); };
-
 var pagesConfig = [
     {
-        path: '/extensions/about',
+        auth: true,
+        path: '/reporting',
         exact: true,
         component: About,
     },
     {
         auth: true,
-        path: '/extensions/authenticated',
+        path: '/reporting/services',
         exact: true,
-        component: Authenticated,
+        component: About,
     },
 ];
 var hookPages = function () {
@@ -278,20 +244,20 @@ var hooks = {
     sections: hookSections,
 };
 
-var ExampleExtension = /** @class */ (function (_super) {
-    __extends(ExampleExtension, _super);
-    function ExampleExtension(config$1) {
+var ReportingExtension = /** @class */ (function (_super) {
+    __extends(ReportingExtension, _super);
+    function ReportingExtension(config$1) {
         var _this = _super.call(this, config$1) || this;
         _this.hooks = hooks;
         config.set(config$1);
         return _this;
     }
-    ExampleExtension.info = {
+    ReportingExtension.info = {
         name: name,
         version: version,
     };
-    return ExampleExtension;
+    return ReportingExtension;
 }(Extension));
 
-export default ExampleExtension;
+export default ReportingExtension;
 //# sourceMappingURL=index.esm.js.map
