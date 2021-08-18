@@ -1,9 +1,5 @@
-export type ReportingExtensionConfig = {
-  someKey: string
-}
+export type ReportingExtensionConfig = {}
 
-const baseConfig: ReportingExtensionConfig = {
-  someKey: 'Base Value',
-}
+const baseConfig: ReportingExtensionConfig = {}
 
 export default baseConfig

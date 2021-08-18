@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { connect } from 'react-redux';
-import React, { forwardRef, createElement, createContext, useEffect } from 'react';
+import * as React from 'react';
+import React__default, { createContext, useEffect } from 'react';
 import { initReactI18next, useTranslation } from 'react-i18next';
 
 /*! *****************************************************************************
@@ -22,7 +23,7 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
@@ -79,12 +80,27 @@ function getDefaultExportFromCjs (x) {
 
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
-	  path: basedir,
-	  exports: {},
-	  require: function (path, base) {
-      return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
-    }
+		path: basedir,
+		exports: {},
+		require: function (path, base) {
+			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+		}
 	}, fn(module, module.exports), module.exports;
+}
+
+function getAugmentedNamespace(n) {
+	if (n.__esModule) return n;
+	var a = Object.defineProperty({}, '__esModule', {value: true});
+	Object.keys(n).forEach(function (k) {
+		var d = Object.getOwnPropertyDescriptor(n, k);
+		Object.defineProperty(a, k, d.get ? d : {
+			enumerable: true,
+			get: function () {
+				return n[k];
+			}
+		});
+	});
+	return a;
 }
 
 function commonjsRequire () {
@@ -138,6 +154,8 @@ var apisuiteExtensionUiTypes_es5 = /*#__PURE__*/Object.freeze({
     get Sections () { return Sections; }
 });
 
+var require$$0 = /*@__PURE__*/getAugmentedNamespace(apisuiteExtensionUiTypes_es5);
+
 var v1 = createCommonjsModule(function (module, exports) {
 var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -152,7 +170,7 @@ var __exportStar = (commonjsGlobal && commonjsGlobal.__exportStar) || function(m
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Extension = exports.protocolVersion = void 0;
 exports.protocolVersion = '1';
-__exportStar(apisuiteExtensionUiTypes_es5, exports);
+__exportStar(require$$0, exports);
 /**
  * All extensions must inherit from this base `Extension` class. It encapsulates
  * and provides all the functionality that the APISuite Portal needs to interact
@@ -241,22 +259,22 @@ var BASE_URI = '/reporting';
 // Backend settings
 var BASE_API_URI = 'https://etl.proba-v-mep.esa.int/';
 
-var extensions = {
-	reporting: {
-		"user.title": "Reporting - Translated"
-	}
-};
-var enUS = {
-	extensions: extensions
-};
-
 var extensions$1 = {
 	reporting: {
 		"user.title": "Reporting - Translated"
 	}
 };
-var ptPT = {
+var enUS = {
 	extensions: extensions$1
+};
+
+var extensions = {
+	reporting: {
+		"user.title": "Reporting - Translated"
+	}
+};
+var ptPT = {
+	extensions: extensions
 };
 
 i18n.addResourceBundle('en', EXT_NAME, enUS);
@@ -286,129 +304,92 @@ function getJobs() {
     return { type: GET_JOBS };
 }
 
-var common = {
-  black: '#000',
-  white: '#fff'
+const __DEV__ = process.env.NODE_ENV === "development";
+process.env.NODE_ENV === "test";
+const fallbackLng = "en-US";
+var apiDefaults;
+(function (apiDefaults) {
+    apiDefaults["settings"] = "settings";
+    apiDefaults["owner"] = "owner";
+    apiDefaults["translations"] = "translations";
+})(apiDefaults || (apiDefaults = {}));
+const defaultState = {
+    initialized: false,
+    failedToFetch: false,
+    portalName: "",
+    clientName: "",
+    supportURL: "",
+    documentationURL: "",
+    providerSignupURL: "",
+    sso: [],
+    socialURLs: [],
+    i18nOptions: [],
+    infra: {
+        hydra: "",
+        sandbox: "",
+        remoteAPI: "",
+    },
+    ownerInfo: {
+        name: "",
+        description: "",
+        vat: "",
+        website: "",
+        logo: "",
+        org_code: "",
+        app_count: 0,
+        tosUrl: "",
+        privacyUrl: "",
+        youtubeUrl: "",
+        websiteUrl: "",
+        supportUrl: "",
+    },
+    pages: {
+        landing: {
+            components: [],
+        },
+    },
+    navigation: {
+        title: {
+            route: "/",
+            iconFallbackName: "circle",
+        },
+        admin: {
+            tabs: [],
+            events: {
+                afterLogin: "",
+            },
+        },
+        organizationOwner: {
+            tabs: [],
+            events: {
+                afterLogin: "",
+            },
+        },
+        developer: {
+            tabs: [],
+            events: {
+                afterLogin: "",
+            },
+        },
+        baseUser: {
+            tabs: [],
+            events: {
+                afterLogin: "",
+            },
+        },
+        anonymous: {
+            tabs: [],
+            events: {
+                afterLogin: "",
+            },
+        },
+    },
 };
 
-var red = {
-  50: '#ffebee',
-  100: '#ffcdd2',
-  200: '#ef9a9a',
-  300: '#e57373',
-  400: '#ef5350',
-  500: '#f44336',
-  600: '#e53935',
-  700: '#d32f2f',
-  800: '#c62828',
-  900: '#b71c1c',
-  A100: '#ff8a80',
-  A200: '#ff5252',
-  A400: '#ff1744',
-  A700: '#d50000'
-};
-
-var pink = {
-  50: '#fce4ec',
-  100: '#f8bbd0',
-  200: '#f48fb1',
-  300: '#f06292',
-  400: '#ec407a',
-  500: '#e91e63',
-  600: '#d81b60',
-  700: '#c2185b',
-  800: '#ad1457',
-  900: '#880e4f',
-  A100: '#ff80ab',
-  A200: '#ff4081',
-  A400: '#f50057',
-  A700: '#c51162'
-};
-
-var indigo = {
-  50: '#e8eaf6',
-  100: '#c5cae9',
-  200: '#9fa8da',
-  300: '#7986cb',
-  400: '#5c6bc0',
-  500: '#3f51b5',
-  600: '#3949ab',
-  700: '#303f9f',
-  800: '#283593',
-  900: '#1a237e',
-  A100: '#8c9eff',
-  A200: '#536dfe',
-  A400: '#3d5afe',
-  A700: '#304ffe'
-};
-
-var blue = {
-  50: '#e3f2fd',
-  100: '#bbdefb',
-  200: '#90caf9',
-  300: '#64b5f6',
-  400: '#42a5f5',
-  500: '#2196f3',
-  600: '#1e88e5',
-  700: '#1976d2',
-  800: '#1565c0',
-  900: '#0d47a1',
-  A100: '#82b1ff',
-  A200: '#448aff',
-  A400: '#2979ff',
-  A700: '#2962ff'
-};
-
-var green = {
-  50: '#e8f5e9',
-  100: '#c8e6c9',
-  200: '#a5d6a7',
-  300: '#81c784',
-  400: '#66bb6a',
-  500: '#4caf50',
-  600: '#43a047',
-  700: '#388e3c',
-  800: '#2e7d32',
-  900: '#1b5e20',
-  A100: '#b9f6ca',
-  A200: '#69f0ae',
-  A400: '#00e676',
-  A700: '#00c853'
-};
-
-var orange = {
-  50: '#fff3e0',
-  100: '#ffe0b2',
-  200: '#ffcc80',
-  300: '#ffb74d',
-  400: '#ffa726',
-  500: '#ff9800',
-  600: '#fb8c00',
-  700: '#f57c00',
-  800: '#ef6c00',
-  900: '#e65100',
-  A100: '#ffd180',
-  A200: '#ffab40',
-  A400: '#ff9100',
-  A700: '#ff6d00'
-};
-
-var grey = {
-  50: '#fafafa',
-  100: '#f5f5f5',
-  200: '#eeeeee',
-  300: '#e0e0e0',
-  400: '#bdbdbd',
-  500: '#9e9e9e',
-  600: '#757575',
-  700: '#616161',
-  800: '#424242',
-  900: '#212121',
-  A100: '#d5d5d5',
-  A200: '#aaaaaa',
-  A400: '#303030',
-  A700: '#616161'
-};
+createContext({
+    ...defaultState,
+    provider: false,
+});
 
 function chainPropTypes(propType1, propType2) {
   if (process.env.NODE_ENV === 'production') {
@@ -440,24 +421,24 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
-function _typeof(obj) {
+function _typeof$1(obj) {
   "@babel/helpers - typeof";
 
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
+    _typeof$1 = function _typeof(obj) {
       return typeof obj;
     };
   } else {
-    _typeof = function _typeof(obj) {
+    _typeof$1 = function _typeof(obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
-  return _typeof(obj);
+  return _typeof$1(obj);
 }
 
 function isPlainObject(item) {
-  return item && _typeof(item) === 'object' && item.constructor === Object;
+  return item && _typeof$1(item) === 'object' && item.constructor === Object;
 }
 function deepmerge(target, source) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
@@ -491,45 +472,45 @@ function deepmerge(target, source) {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
-Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
-function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}var AsyncMode=l;var ConcurrentMode=m;var ContextConsumer=k;var ContextProvider=h;var Element=c;var ForwardRef=n;var Fragment=e;var Lazy=t;var Memo=r;var Portal=d;
-var Profiler=g;var StrictMode=f;var Suspense=p;var isAsyncMode=function(a){return A(a)||z(a)===l};var isConcurrentMode=A;var isContextConsumer=function(a){return z(a)===k};var isContextProvider=function(a){return z(a)===h};var isElement=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c};var isForwardRef=function(a){return z(a)===n};var isFragment=function(a){return z(a)===e};var isLazy=function(a){return z(a)===t};
-var isMemo=function(a){return z(a)===r};var isPortal=function(a){return z(a)===d};var isProfiler=function(a){return z(a)===g};var isStrictMode=function(a){return z(a)===f};var isSuspense=function(a){return z(a)===p};
-var isValidElementType=function(a){return "string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};var typeOf=z;
+var b$2="function"===typeof Symbol&&Symbol.for,c$2=b$2?Symbol.for("react.element"):60103,d$2=b$2?Symbol.for("react.portal"):60106,e$2=b$2?Symbol.for("react.fragment"):60107,f$2=b$2?Symbol.for("react.strict_mode"):60108,g$2=b$2?Symbol.for("react.profiler"):60114,h$2=b$2?Symbol.for("react.provider"):60109,k$2=b$2?Symbol.for("react.context"):60110,l$2=b$2?Symbol.for("react.async_mode"):60111,m$2=b$2?Symbol.for("react.concurrent_mode"):60111,n$2=b$2?Symbol.for("react.forward_ref"):60112,p$2=b$2?Symbol.for("react.suspense"):60113,q$2=b$2?
+Symbol.for("react.suspense_list"):60120,r$2=b$2?Symbol.for("react.memo"):60115,t$1=b$2?Symbol.for("react.lazy"):60116,v$2=b$2?Symbol.for("react.block"):60121,w$2=b$2?Symbol.for("react.fundamental"):60117,x$2=b$2?Symbol.for("react.responder"):60118,y$2=b$2?Symbol.for("react.scope"):60119;
+function z$2(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c$2:switch(a=a.type,a){case l$2:case m$2:case e$2:case g$2:case f$2:case p$2:return a;default:switch(a=a&&a.$$typeof,a){case k$2:case n$2:case t$1:case r$2:case h$2:return a;default:return u}}case d$2:return u}}}function A$2(a){return z$2(a)===m$2}var AsyncMode$1=l$2;var ConcurrentMode$1=m$2;var ContextConsumer$2=k$2;var ContextProvider$2=h$2;var Element$2=c$2;var ForwardRef$2=n$2;var Fragment$2=e$2;var Lazy$2=t$1;var Memo$2=r$2;var Portal$2=d$2;
+var Profiler$2=g$2;var StrictMode$2=f$2;var Suspense$2=p$2;var isAsyncMode$2=function(a){return A$2(a)||z$2(a)===l$2};var isConcurrentMode$2=A$2;var isContextConsumer$2=function(a){return z$2(a)===k$2};var isContextProvider$2=function(a){return z$2(a)===h$2};var isElement$2=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c$2};var isForwardRef$2=function(a){return z$2(a)===n$2};var isFragment$2=function(a){return z$2(a)===e$2};var isLazy$2=function(a){return z$2(a)===t$1};
+var isMemo$2=function(a){return z$2(a)===r$2};var isPortal$2=function(a){return z$2(a)===d$2};var isProfiler$2=function(a){return z$2(a)===g$2};var isStrictMode$2=function(a){return z$2(a)===f$2};var isSuspense$2=function(a){return z$2(a)===p$2};
+var isValidElementType$2=function(a){return "string"===typeof a||"function"===typeof a||a===e$2||a===m$2||a===g$2||a===f$2||a===p$2||a===q$2||"object"===typeof a&&null!==a&&(a.$$typeof===t$1||a.$$typeof===r$2||a.$$typeof===h$2||a.$$typeof===k$2||a.$$typeof===n$2||a.$$typeof===w$2||a.$$typeof===x$2||a.$$typeof===y$2||a.$$typeof===v$2)};var typeOf$2=z$2;
 
-var reactIs_production_min = {
-	AsyncMode: AsyncMode,
-	ConcurrentMode: ConcurrentMode,
-	ContextConsumer: ContextConsumer,
-	ContextProvider: ContextProvider,
-	Element: Element,
-	ForwardRef: ForwardRef,
-	Fragment: Fragment,
-	Lazy: Lazy,
-	Memo: Memo,
-	Portal: Portal,
-	Profiler: Profiler,
-	StrictMode: StrictMode,
-	Suspense: Suspense,
-	isAsyncMode: isAsyncMode,
-	isConcurrentMode: isConcurrentMode,
-	isContextConsumer: isContextConsumer,
-	isContextProvider: isContextProvider,
-	isElement: isElement,
-	isForwardRef: isForwardRef,
-	isFragment: isFragment,
-	isLazy: isLazy,
-	isMemo: isMemo,
-	isPortal: isPortal,
-	isProfiler: isProfiler,
-	isStrictMode: isStrictMode,
-	isSuspense: isSuspense,
-	isValidElementType: isValidElementType,
-	typeOf: typeOf
+var reactIs_production_min$2 = {
+	AsyncMode: AsyncMode$1,
+	ConcurrentMode: ConcurrentMode$1,
+	ContextConsumer: ContextConsumer$2,
+	ContextProvider: ContextProvider$2,
+	Element: Element$2,
+	ForwardRef: ForwardRef$2,
+	Fragment: Fragment$2,
+	Lazy: Lazy$2,
+	Memo: Memo$2,
+	Portal: Portal$2,
+	Profiler: Profiler$2,
+	StrictMode: StrictMode$2,
+	Suspense: Suspense$2,
+	isAsyncMode: isAsyncMode$2,
+	isConcurrentMode: isConcurrentMode$2,
+	isContextConsumer: isContextConsumer$2,
+	isContextProvider: isContextProvider$2,
+	isElement: isElement$2,
+	isForwardRef: isForwardRef$2,
+	isFragment: isFragment$2,
+	isLazy: isLazy$2,
+	isMemo: isMemo$2,
+	isPortal: isPortal$2,
+	isProfiler: isProfiler$2,
+	isStrictMode: isStrictMode$2,
+	isSuspense: isSuspense$2,
+	isValidElementType: isValidElementType$2,
+	typeOf: typeOf$2
 };
 
-var reactIs_development = createCommonjsModule(function (module, exports) {
+var reactIs_development$2 = createCommonjsModule(function (module, exports) {
 
 
 
@@ -702,12 +683,12 @@ exports.typeOf = typeOf;
 }
 });
 
-var reactIs = createCommonjsModule(function (module) {
+var reactIs$2 = createCommonjsModule(function (module) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = reactIs_production_min;
+  module.exports = reactIs_production_min$2;
 } else {
-  module.exports = reactIs_development;
+  module.exports = reactIs_development$2;
 }
 });
 
@@ -717,7 +698,7 @@ object-assign
 @license MIT
 */
 /* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -787,8 +768,8 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
 			}
 		}
 
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
+		if (getOwnPropertySymbols$1) {
+			symbols = getOwnPropertySymbols$1(from);
 			for (var i = 0; i < symbols.length; i++) {
 				if (propIsEnumerable.call(from, symbols[i])) {
 					to[symbols[i]] = from[symbols[i]];
@@ -807,18 +788,18 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
  * LICENSE file in the root directory of this source tree.
  */
 
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
-var ReactPropTypesSecret_1 = ReactPropTypesSecret;
+var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
 
-var printWarning = function() {};
+var printWarning$1 = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+  var ReactPropTypesSecret = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
-  var has = Function.call.bind(Object.prototype.hasOwnProperty);
+  var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
 
-  printWarning = function(text) {
+  printWarning$1 = function(text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
       console.error(message);
@@ -846,7 +827,7 @@ if (process.env.NODE_ENV !== 'production') {
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
   if (process.env.NODE_ENV !== 'production') {
     for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
+      if (has$1(typeSpecs, typeSpecName)) {
         var error;
         // Prop type validation may throw. In case they do, we don't want to
         // fail the render phase where it didn't fail before. So we log it.
@@ -862,12 +843,12 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
             err.name = 'Invariant Violation';
             throw err;
           }
-          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret$1);
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
         } catch (ex) {
           error = ex;
         }
         if (error && !(error instanceof Error)) {
-          printWarning(
+          printWarning$1(
             (componentName || 'React class') + ': type specification of ' +
             location + ' `' + typeSpecName + '` is invalid; the type checker ' +
             'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
@@ -883,7 +864,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
           var stack = getStack ? getStack() : '';
 
-          printWarning(
+          printWarning$1(
             'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
           );
         }
@@ -905,11 +886,11 @@ checkPropTypes.resetWarningCache = function() {
 
 var checkPropTypes_1 = checkPropTypes;
 
-var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
-var printWarning$1 = function() {};
+var has = Function.call.bind(Object.prototype.hasOwnProperty);
+var printWarning = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
-  printWarning$1 = function(text) {
+  printWarning = function(text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
       console.error(message);
@@ -1085,7 +1066,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
             // Avoid spamming the console because they are often not actionable except for lib authors
             manualPropTypeWarningCount < 3
           ) {
-            printWarning$1(
+            printWarning(
               'You are manually calling a React.PropTypes validation ' +
               'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
               'and will throw in the standalone `prop-types` package. ' +
@@ -1173,7 +1154,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   function createElementTypeTypeChecker() {
     function validate(props, propName, componentName, location, propFullName) {
       var propValue = props[propName];
-      if (!reactIs.isValidElementType(propValue)) {
+      if (!reactIs$2.isValidElementType(propValue)) {
         var propType = getPropType(propValue);
         return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
       }
@@ -1198,12 +1179,12 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
     if (!Array.isArray(expectedValues)) {
       if (process.env.NODE_ENV !== 'production') {
         if (arguments.length > 1) {
-          printWarning$1(
+          printWarning(
             'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
             'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
           );
         } else {
-          printWarning$1('Invalid argument supplied to oneOf, expected an array.');
+          printWarning('Invalid argument supplied to oneOf, expected an array.');
         }
       }
       return emptyFunctionThatReturnsNull;
@@ -1240,7 +1221,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
         return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
       }
       for (var key in propValue) {
-        if (has$1(propValue, key)) {
+        if (has(propValue, key)) {
           var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
           if (error instanceof Error) {
             return error;
@@ -1254,14 +1235,14 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      process.env.NODE_ENV !== 'production' ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
       return emptyFunctionThatReturnsNull;
     }
 
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
       var checker = arrayOfTypeCheckers[i];
       if (typeof checker !== 'function') {
-        printWarning$1(
+        printWarning(
           'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
           'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
         );
@@ -1543,7 +1524,7 @@ var propTypes = createCommonjsModule(function (module) {
  */
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactIs = reactIs;
+  var ReactIs = reactIs$2;
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
@@ -1619,6 +1600,274 @@ function formatMuiErrorMessage(code) {
   /* eslint-enable prefer-template */
 }
 
+/** @license React v17.0.2
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var b$1=60103,c$1=60106,d$1=60107,e$1=60108,f$1=60114,g$1=60109,h$1=60110,k$1=60112,l$1=60113,m$1=60120,n$1=60115,p$1=60116,q$1=60121,r$1=60122,u=60117,v$1=60129,w$1=60131;
+if("function"===typeof Symbol&&Symbol.for){var x$1=Symbol.for;b$1=x$1("react.element");c$1=x$1("react.portal");d$1=x$1("react.fragment");e$1=x$1("react.strict_mode");f$1=x$1("react.profiler");g$1=x$1("react.provider");h$1=x$1("react.context");k$1=x$1("react.forward_ref");l$1=x$1("react.suspense");m$1=x$1("react.suspense_list");n$1=x$1("react.memo");p$1=x$1("react.lazy");q$1=x$1("react.block");r$1=x$1("react.server.block");u=x$1("react.fundamental");v$1=x$1("react.debug_trace_mode");w$1=x$1("react.legacy_hidden");}
+function y$1(a){if("object"===typeof a&&null!==a){var t=a.$$typeof;switch(t){case b$1:switch(a=a.type,a){case d$1:case f$1:case e$1:case l$1:case m$1:return a;default:switch(a=a&&a.$$typeof,a){case h$1:case k$1:case p$1:case n$1:case g$1:return a;default:return t}}case c$1:return t}}}var z$1=g$1,A$1=b$1,B=k$1,C=d$1,D=p$1,E=n$1,F=c$1,G=f$1,H=e$1,I=l$1;var ContextConsumer$1=h$1;var ContextProvider$1=z$1;var Element$1=A$1;var ForwardRef$1=B;var Fragment$1=C;var Lazy$1=D;var Memo$1=E;var Portal$1=F;var Profiler$1=G;var StrictMode$1=H;
+var Suspense$1=I;var isAsyncMode$1=function(){return !1};var isConcurrentMode$1=function(){return !1};var isContextConsumer$1=function(a){return y$1(a)===h$1};var isContextProvider$1=function(a){return y$1(a)===g$1};var isElement$1=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===b$1};var isForwardRef$1=function(a){return y$1(a)===k$1};var isFragment$1=function(a){return y$1(a)===d$1};var isLazy$1=function(a){return y$1(a)===p$1};var isMemo$1=function(a){return y$1(a)===n$1};
+var isPortal$1=function(a){return y$1(a)===c$1};var isProfiler$1=function(a){return y$1(a)===f$1};var isStrictMode$1=function(a){return y$1(a)===e$1};var isSuspense$1=function(a){return y$1(a)===l$1};var isValidElementType$1=function(a){return "string"===typeof a||"function"===typeof a||a===d$1||a===f$1||a===v$1||a===e$1||a===l$1||a===m$1||a===w$1||"object"===typeof a&&null!==a&&(a.$$typeof===p$1||a.$$typeof===n$1||a.$$typeof===g$1||a.$$typeof===h$1||a.$$typeof===k$1||a.$$typeof===u||a.$$typeof===q$1||a[0]===r$1)?!0:!1};
+var typeOf$1=y$1;
+
+var reactIs_production_min$1 = {
+	ContextConsumer: ContextConsumer$1,
+	ContextProvider: ContextProvider$1,
+	Element: Element$1,
+	ForwardRef: ForwardRef$1,
+	Fragment: Fragment$1,
+	Lazy: Lazy$1,
+	Memo: Memo$1,
+	Portal: Portal$1,
+	Profiler: Profiler$1,
+	StrictMode: StrictMode$1,
+	Suspense: Suspense$1,
+	isAsyncMode: isAsyncMode$1,
+	isConcurrentMode: isConcurrentMode$1,
+	isContextConsumer: isContextConsumer$1,
+	isContextProvider: isContextProvider$1,
+	isElement: isElement$1,
+	isForwardRef: isForwardRef$1,
+	isFragment: isFragment$1,
+	isLazy: isLazy$1,
+	isMemo: isMemo$1,
+	isPortal: isPortal$1,
+	isProfiler: isProfiler$1,
+	isStrictMode: isStrictMode$1,
+	isSuspense: isSuspense$1,
+	isValidElementType: isValidElementType$1,
+	typeOf: typeOf$1
+};
+
+var reactIs_development$1 = createCommonjsModule(function (module, exports) {
+
+if (process.env.NODE_ENV !== "production") {
+  (function() {
+
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var REACT_ELEMENT_TYPE = 0xeac7;
+var REACT_PORTAL_TYPE = 0xeaca;
+var REACT_FRAGMENT_TYPE = 0xeacb;
+var REACT_STRICT_MODE_TYPE = 0xeacc;
+var REACT_PROFILER_TYPE = 0xead2;
+var REACT_PROVIDER_TYPE = 0xeacd;
+var REACT_CONTEXT_TYPE = 0xeace;
+var REACT_FORWARD_REF_TYPE = 0xead0;
+var REACT_SUSPENSE_TYPE = 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = 0xead8;
+var REACT_MEMO_TYPE = 0xead3;
+var REACT_LAZY_TYPE = 0xead4;
+var REACT_BLOCK_TYPE = 0xead9;
+var REACT_SERVER_BLOCK_TYPE = 0xeada;
+var REACT_FUNDAMENTAL_TYPE = 0xead5;
+var REACT_DEBUG_TRACING_MODE_TYPE = 0xeae1;
+var REACT_LEGACY_HIDDEN_TYPE = 0xeae3;
+
+if (typeof Symbol === 'function' && Symbol.for) {
+  var symbolFor = Symbol.for;
+  REACT_ELEMENT_TYPE = symbolFor('react.element');
+  REACT_PORTAL_TYPE = symbolFor('react.portal');
+  REACT_FRAGMENT_TYPE = symbolFor('react.fragment');
+  REACT_STRICT_MODE_TYPE = symbolFor('react.strict_mode');
+  REACT_PROFILER_TYPE = symbolFor('react.profiler');
+  REACT_PROVIDER_TYPE = symbolFor('react.provider');
+  REACT_CONTEXT_TYPE = symbolFor('react.context');
+  REACT_FORWARD_REF_TYPE = symbolFor('react.forward_ref');
+  REACT_SUSPENSE_TYPE = symbolFor('react.suspense');
+  REACT_SUSPENSE_LIST_TYPE = symbolFor('react.suspense_list');
+  REACT_MEMO_TYPE = symbolFor('react.memo');
+  REACT_LAZY_TYPE = symbolFor('react.lazy');
+  REACT_BLOCK_TYPE = symbolFor('react.block');
+  REACT_SERVER_BLOCK_TYPE = symbolFor('react.server.block');
+  REACT_FUNDAMENTAL_TYPE = symbolFor('react.fundamental');
+  symbolFor('react.scope');
+  symbolFor('react.opaque.id');
+  REACT_DEBUG_TRACING_MODE_TYPE = symbolFor('react.debug_trace_mode');
+  symbolFor('react.offscreen');
+  REACT_LEGACY_HIDDEN_TYPE = symbolFor('react.legacy_hidden');
+}
+
+// Filter certain DOM attributes (e.g. src, href) if their values are empty strings.
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+
+function isValidElementType(type) {
+  if (typeof type === 'string' || typeof type === 'function') {
+    return true;
+  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
+
+
+  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_DEBUG_TRACING_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_LEGACY_HIDDEN_TYPE || enableScopeAPI ) {
+    return true;
+  }
+
+  if (typeof type === 'object' && type !== null) {
+    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_BLOCK_TYPE || type[0] === REACT_SERVER_BLOCK_TYPE) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+          case REACT_SUSPENSE_LIST_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+}
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false;
+var hasWarnedAboutDeprecatedIsConcurrentMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isConcurrentMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsConcurrentMode) {
+      hasWarnedAboutDeprecatedIsConcurrentMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isConcurrentMode() alias has been deprecated, ' + 'and will be removed in React 18+.');
+    }
+  }
+
+  return false;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+});
+
+var reactIs$1 = createCommonjsModule(function (module) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = reactIs_production_min$1;
+} else {
+  module.exports = reactIs_development$1;
+}
+});
+
 // https://github.com/JamesMGreene/Function.name/blob/58b314d4a983110c3682f1228f845d39ccca1817/Function.name.js#L3
 
 var fnNameMatchRegex = /^\s*function(?:\s|\s*\/\*.*\*\/\s*)+([^(\s/]*)\s*/;
@@ -1665,12 +1914,12 @@ function getDisplayName(Component) {
     return getFunctionComponentName(Component, 'Component');
   }
 
-  if (_typeof(Component) === 'object') {
+  if (_typeof$1(Component) === 'object') {
     switch (Component.$$typeof) {
-      case reactIs.ForwardRef:
+      case reactIs$1.ForwardRef:
         return getWrappedName(Component, Component.render, 'ForwardRef');
 
-      case reactIs.Memo:
+      case reactIs$1.Memo:
         return getWrappedName(Component, Component.type, 'memo');
 
       default:
@@ -2041,6 +2290,138 @@ function createMixins(breakpoints, spacing, mixins) {
   }, mixins);
 }
 
+var common = {
+  black: '#000',
+  white: '#fff'
+};
+var common$1 = common;
+
+var grey = {
+  50: '#fafafa',
+  100: '#f5f5f5',
+  200: '#eeeeee',
+  300: '#e0e0e0',
+  400: '#bdbdbd',
+  500: '#9e9e9e',
+  600: '#757575',
+  700: '#616161',
+  800: '#424242',
+  900: '#212121',
+  A100: '#d5d5d5',
+  A200: '#aaaaaa',
+  A400: '#303030',
+  A700: '#616161'
+};
+var grey$1 = grey;
+
+var indigo = {
+  50: '#e8eaf6',
+  100: '#c5cae9',
+  200: '#9fa8da',
+  300: '#7986cb',
+  400: '#5c6bc0',
+  500: '#3f51b5',
+  600: '#3949ab',
+  700: '#303f9f',
+  800: '#283593',
+  900: '#1a237e',
+  A100: '#8c9eff',
+  A200: '#536dfe',
+  A400: '#3d5afe',
+  A700: '#304ffe'
+};
+var indigo$1 = indigo;
+
+var pink = {
+  50: '#fce4ec',
+  100: '#f8bbd0',
+  200: '#f48fb1',
+  300: '#f06292',
+  400: '#ec407a',
+  500: '#e91e63',
+  600: '#d81b60',
+  700: '#c2185b',
+  800: '#ad1457',
+  900: '#880e4f',
+  A100: '#ff80ab',
+  A200: '#ff4081',
+  A400: '#f50057',
+  A700: '#c51162'
+};
+var pink$1 = pink;
+
+var red = {
+  50: '#ffebee',
+  100: '#ffcdd2',
+  200: '#ef9a9a',
+  300: '#e57373',
+  400: '#ef5350',
+  500: '#f44336',
+  600: '#e53935',
+  700: '#d32f2f',
+  800: '#c62828',
+  900: '#b71c1c',
+  A100: '#ff8a80',
+  A200: '#ff5252',
+  A400: '#ff1744',
+  A700: '#d50000'
+};
+var red$1 = red;
+
+var orange = {
+  50: '#fff3e0',
+  100: '#ffe0b2',
+  200: '#ffcc80',
+  300: '#ffb74d',
+  400: '#ffa726',
+  500: '#ff9800',
+  600: '#fb8c00',
+  700: '#f57c00',
+  800: '#ef6c00',
+  900: '#e65100',
+  A100: '#ffd180',
+  A200: '#ffab40',
+  A400: '#ff9100',
+  A700: '#ff6d00'
+};
+var orange$1 = orange;
+
+var blue = {
+  50: '#e3f2fd',
+  100: '#bbdefb',
+  200: '#90caf9',
+  300: '#64b5f6',
+  400: '#42a5f5',
+  500: '#2196f3',
+  600: '#1e88e5',
+  700: '#1976d2',
+  800: '#1565c0',
+  900: '#0d47a1',
+  A100: '#82b1ff',
+  A200: '#448aff',
+  A400: '#2979ff',
+  A700: '#2962ff'
+};
+var blue$1 = blue;
+
+var green = {
+  50: '#e8f5e9',
+  100: '#c8e6c9',
+  200: '#a5d6a7',
+  300: '#81c784',
+  400: '#66bb6a',
+  500: '#4caf50',
+  600: '#43a047',
+  700: '#388e3c',
+  800: '#2e7d32',
+  900: '#1b5e20',
+  A100: '#b9f6ca',
+  A200: '#69f0ae',
+  A400: '#00e676',
+  A700: '#00c853'
+};
+var green$1 = green;
+
 var light = {
   // The colors used to style the text.
   text: {
@@ -2058,8 +2439,8 @@ var light = {
   // The background colors used to style the surfaces.
   // Consistency between these values is important.
   background: {
-    paper: common.white,
-    default: grey[50]
+    paper: common$1.white,
+    default: grey$1[50]
   },
   // The colors used to style the action elements.
   action: {
@@ -2083,7 +2464,7 @@ var light = {
 };
 var dark = {
   text: {
-    primary: common.white,
+    primary: common$1.white,
     secondary: 'rgba(255, 255, 255, 0.7)',
     disabled: 'rgba(255, 255, 255, 0.5)',
     hint: 'rgba(255, 255, 255, 0.5)',
@@ -2091,11 +2472,11 @@ var dark = {
   },
   divider: 'rgba(255, 255, 255, 0.12)',
   background: {
-    paper: grey[800],
+    paper: grey$1[800],
     default: '#303030'
   },
   action: {
-    active: common.white,
+    active: common$1.white,
     hover: 'rgba(255, 255, 255, 0.08)',
     hoverOpacity: 0.08,
     selected: 'rgba(255, 255, 255, 0.16)',
@@ -2127,39 +2508,39 @@ function addLightOrDark(intent, direction, shade, tonalOffset) {
 function createPalette(palette) {
   var _palette$primary = palette.primary,
       primary = _palette$primary === void 0 ? {
-    light: indigo[300],
-    main: indigo[500],
-    dark: indigo[700]
+    light: indigo$1[300],
+    main: indigo$1[500],
+    dark: indigo$1[700]
   } : _palette$primary,
       _palette$secondary = palette.secondary,
       secondary = _palette$secondary === void 0 ? {
-    light: pink.A200,
-    main: pink.A400,
-    dark: pink.A700
+    light: pink$1.A200,
+    main: pink$1.A400,
+    dark: pink$1.A700
   } : _palette$secondary,
       _palette$error = palette.error,
       error = _palette$error === void 0 ? {
-    light: red[300],
-    main: red[500],
-    dark: red[700]
+    light: red$1[300],
+    main: red$1[500],
+    dark: red$1[700]
   } : _palette$error,
       _palette$warning = palette.warning,
       warning = _palette$warning === void 0 ? {
-    light: orange[300],
-    main: orange[500],
-    dark: orange[700]
+    light: orange$1[300],
+    main: orange$1[500],
+    dark: orange$1[700]
   } : _palette$warning,
       _palette$info = palette.info,
       info = _palette$info === void 0 ? {
-    light: blue[300],
-    main: blue[500],
-    dark: blue[700]
+    light: blue$1[300],
+    main: blue$1[500],
+    dark: blue$1[700]
   } : _palette$info,
       _palette$success = palette.success,
       success = _palette$success === void 0 ? {
-    light: green[300],
-    main: green[500],
-    dark: green[700]
+    light: green$1[300],
+    main: green$1[500],
+    dark: green$1[700]
   } : _palette$success,
       _palette$type = palette.type,
       type = _palette$type === void 0 ? 'light' : _palette$type,
@@ -2227,7 +2608,7 @@ function createPalette(palette) {
 
   var paletteOutput = deepmerge(_extends({
     // A collection of common colors.
-    common: common,
+    common: common$1,
     // The palette type, can be light or dark.
     type: type,
     // The colors used to represent primary interface elements for a user.
@@ -2243,7 +2624,7 @@ function createPalette(palette) {
     // The colors used to indicate the successful completion of an action that user triggered.
     success: augmentColor(success),
     // The grey colors.
-    grey: grey,
+    grey: grey$1,
     // Used by `getContrastText()` to maximize the contrast between
     // the background and the text.
     contrastThreshold: contrastThreshold,
@@ -2362,12 +2743,15 @@ function createShadow() {
 
 
 var shadows = ['none', createShadow(0, 2, 1, -1, 0, 1, 1, 0, 0, 1, 3, 0), createShadow(0, 3, 1, -2, 0, 2, 2, 0, 0, 1, 5, 0), createShadow(0, 3, 3, -2, 0, 3, 4, 0, 0, 1, 8, 0), createShadow(0, 2, 4, -1, 0, 4, 5, 0, 0, 1, 10, 0), createShadow(0, 3, 5, -1, 0, 5, 8, 0, 0, 1, 14, 0), createShadow(0, 3, 5, -1, 0, 6, 10, 0, 0, 1, 18, 0), createShadow(0, 4, 5, -2, 0, 7, 10, 1, 0, 2, 16, 1), createShadow(0, 5, 5, -3, 0, 8, 10, 1, 0, 3, 14, 2), createShadow(0, 5, 6, -3, 0, 9, 12, 1, 0, 3, 16, 2), createShadow(0, 6, 6, -3, 0, 10, 14, 1, 0, 4, 18, 3), createShadow(0, 6, 7, -4, 0, 11, 15, 1, 0, 4, 20, 3), createShadow(0, 7, 8, -4, 0, 12, 17, 2, 0, 5, 22, 4), createShadow(0, 7, 8, -4, 0, 13, 19, 2, 0, 5, 24, 4), createShadow(0, 7, 9, -4, 0, 14, 21, 2, 0, 5, 26, 4), createShadow(0, 8, 9, -5, 0, 15, 22, 2, 0, 6, 28, 5), createShadow(0, 8, 10, -5, 0, 16, 24, 2, 0, 6, 30, 5), createShadow(0, 8, 11, -5, 0, 17, 26, 2, 0, 6, 32, 5), createShadow(0, 9, 11, -5, 0, 18, 28, 2, 0, 7, 34, 6), createShadow(0, 9, 12, -6, 0, 19, 29, 2, 0, 7, 36, 6), createShadow(0, 10, 13, -6, 0, 20, 31, 3, 0, 8, 38, 7), createShadow(0, 10, 13, -6, 0, 21, 33, 3, 0, 8, 40, 7), createShadow(0, 10, 14, -6, 0, 22, 35, 3, 0, 8, 42, 7), createShadow(0, 11, 14, -7, 0, 23, 36, 3, 0, 9, 44, 8), createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8)];
+var shadows$1 = shadows;
 
 var shape = {
   borderRadius: 4
 };
+var shape$1 = shape;
 
 var responsivePropType = process.env.NODE_ENV !== 'production' ? propTypes.oneOfType([propTypes.number, propTypes.string, propTypes.object, propTypes.array]) : {};
+var responsivePropType$1 = responsivePropType;
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
@@ -2384,7 +2768,7 @@ function _arrayWithoutHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 
 function _unsupportedIterableToArray(o, minLen) {
@@ -2404,154 +2788,6 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
-function merge(acc, item) {
-  if (!item) {
-    return acc;
-  }
-
-  return deepmerge(acc, item, {
-    clone: false // No need to clone deep, it's way faster.
-
-  });
-}
-
-// For instance with the first breakpoint xs: [xs, sm[.
-
-var values = {
-  xs: 0,
-  sm: 600,
-  md: 960,
-  lg: 1280,
-  xl: 1920
-};
-var defaultBreakpoints = {
-  // Sorted ASC by size. That's important.
-  // It can't be configured as it's used statically for propTypes.
-  keys: ['xs', 'sm', 'md', 'lg', 'xl'],
-  up: function up(key) {
-    return "@media (min-width:".concat(values[key], "px)");
-  }
-};
-function handleBreakpoints(props, propValue, styleFromPropValue) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (!props.theme) {
-      console.error('Material-UI: You are calling a style function without a theme value.');
-    }
-  }
-
-  if (Array.isArray(propValue)) {
-    var themeBreakpoints = props.theme.breakpoints || defaultBreakpoints;
-    return propValue.reduce(function (acc, item, index) {
-      acc[themeBreakpoints.up(themeBreakpoints.keys[index])] = styleFromPropValue(propValue[index]);
-      return acc;
-    }, {});
-  }
-
-  if (_typeof(propValue) === 'object') {
-    var _themeBreakpoints = props.theme.breakpoints || defaultBreakpoints;
-
-    return Object.keys(propValue).reduce(function (acc, breakpoint) {
-      acc[_themeBreakpoints.up(breakpoint)] = styleFromPropValue(propValue[breakpoint]);
-      return acc;
-    }, {});
-  }
-
-  var output = styleFromPropValue(propValue);
-  return output;
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function memoize(fn) {
-  var cache = {};
-  return function (arg) {
-    if (cache[arg] === undefined) {
-      cache[arg] = fn(arg);
-    }
-
-    return cache[arg];
-  };
-}
-
-var properties = {
-  m: 'margin',
-  p: 'padding'
-};
-var directions = {
-  t: 'Top',
-  r: 'Right',
-  b: 'Bottom',
-  l: 'Left',
-  x: ['Left', 'Right'],
-  y: ['Top', 'Bottom']
-};
-var aliases = {
-  marginX: 'mx',
-  marginY: 'my',
-  paddingX: 'px',
-  paddingY: 'py'
-}; // memoize() impact:
-// From 300,000 ops/sec
-// To 350,000 ops/sec
-
-var getCssProperties = memoize(function (prop) {
-  // It's not a shorthand notation.
-  if (prop.length > 2) {
-    if (aliases[prop]) {
-      prop = aliases[prop];
-    } else {
-      return [prop];
-    }
-  }
-
-  var _prop$split = prop.split(''),
-      _prop$split2 = _slicedToArray(_prop$split, 2),
-      a = _prop$split2[0],
-      b = _prop$split2[1];
-
-  var property = properties[a];
-  var direction = directions[b] || '';
-  return Array.isArray(direction) ? direction.map(function (dir) {
-    return property + dir;
-  }) : [property + direction];
-});
 var spacingKeys = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my', 'p', 'pt', 'pr', 'pb', 'pl', 'px', 'py', 'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft', 'marginX', 'marginY', 'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'paddingX', 'paddingY'];
 function createUnarySpacing(theme) {
   var themeSpacing = theme.spacing || 8;
@@ -2593,56 +2829,10 @@ function createUnarySpacing(theme) {
   };
 }
 
-function getValue(transformer, propValue) {
-  if (typeof propValue === 'string' || propValue == null) {
-    return propValue;
-  }
-
-  var abs = Math.abs(propValue);
-  var transformed = transformer(abs);
-
-  if (propValue >= 0) {
-    return transformed;
-  }
-
-  if (typeof transformed === 'number') {
-    return -transformed;
-  }
-
-  return "-".concat(transformed);
-}
-
-function getStyleFromPropValue(cssProperties, transformer) {
-  return function (propValue) {
-    return cssProperties.reduce(function (acc, cssProperty) {
-      acc[cssProperty] = getValue(transformer, propValue);
-      return acc;
-    }, {});
-  };
-}
-
-function spacing(props) {
-  var theme = props.theme;
-  var transformer = createUnarySpacing(theme);
-  return Object.keys(props).map(function (prop) {
-    // Using a hash computation over an array iteration could be faster, but with only 28 items,
-    // it's doesn't worth the bundle size.
-    if (spacingKeys.indexOf(prop) === -1) {
-      return null;
-    }
-
-    var cssProperties = getCssProperties(prop);
-    var styleFromPropValue = getStyleFromPropValue(cssProperties, transformer);
-    var propValue = props[prop];
-    return handleBreakpoints(props, propValue, styleFromPropValue);
-  }).reduce(merge, {});
-}
-
-spacing.propTypes = process.env.NODE_ENV !== 'production' ? spacingKeys.reduce(function (obj, key) {
-  obj[key] = responsivePropType;
+process.env.NODE_ENV !== 'production' ? spacingKeys.reduce(function (obj, key) {
+  obj[key] = responsivePropType$1;
   return obj;
 }, {}) : {};
-spacing.filterProps = spacingKeys;
 
 var warnOnce;
 function createSpacing() {
@@ -2820,6 +3010,7 @@ var zIndex = {
   snackbar: 1400,
   tooltip: 1500
 };
+var zIndex$1 = zIndex;
 
 function createMuiTheme() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -2847,12 +3038,12 @@ function createMuiTheme() {
     palette: palette,
     props: {},
     // Provide default props
-    shadows: shadows,
+    shadows: shadows$1,
     typography: createTypography(palette, typographyInput),
     spacing: spacing,
-    shape: shape,
+    shape: shape$1,
     transitions: transitions,
-    zIndex: zIndex
+    zIndex: zIndex$1
   }, other);
 
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -3014,9 +3205,9 @@ function warning(condition, message) {
   }
 }
 
-var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof$1(window)) === "object" && (typeof document === "undefined" ? "undefined" : _typeof$1(document)) === 'object' && document.nodeType === 9;
+var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) === "object" && (typeof document === "undefined" ? "undefined" : _typeof(document)) === 'object' && document.nodeType === 9;
 
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
@@ -3034,10 +3225,19 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+  _setPrototypeOf(subClass, superClass);
 }
 
 function _assertThisInitialized(self) {
@@ -3561,11 +3761,11 @@ function () {
   return KeyframesRule;
 }();
 var keyRegExp$1 = /@keyframes\s+/;
-var refRegExp = /\$([\w-]+)/g;
+var refRegExp$1 = /\$([\w-]+)/g;
 
 var findReferencedKeyframe = function findReferencedKeyframe(val, keyframes) {
   if (typeof val === 'string') {
-    return val.replace(refRegExp, function (match, name) {
+    return val.replace(refRegExp$1, function (match, name) {
       if (name in keyframes) {
         return keyframes[name];
       }
@@ -3795,7 +3995,7 @@ var pluginSimpleRule = {
   }
 };
 
-var plugins = [pluginStyleRule, pluginConditionalRule, plugin, pluginKeyframeRule, pluginFontFaceRule, pluginViewportRule, pluginSimpleRule];
+var plugins$1 = [pluginStyleRule, pluginConditionalRule, plugin, pluginKeyframeRule, pluginFontFaceRule, pluginViewportRule, pluginSimpleRule];
 
 var defaultUpdateOptions = {
   process: true
@@ -4558,7 +4758,7 @@ var createGenerateId = function createGenerateId(options) {
 /**
  * Cache the value from the first time a function is called.
  */
-var memoize$1 = function memoize(fn) {
+var memoize = function memoize(fn) {
   var value;
   return function () {
     if (!value) value = fn();
@@ -4644,7 +4844,7 @@ var setSelector = function setSelector(cssRule, selectorText) {
  */
 
 
-var getHead = memoize$1(function () {
+var getHead = memoize(function () {
   return document.querySelector('head');
 });
 /**
@@ -4775,7 +4975,7 @@ function insertStyle(style, options) {
  */
 
 
-var getNonce = memoize$1(function () {
+var getNonce = memoize(function () {
   var node = document.querySelector('meta[property="csp-nonce"]');
   return node ? node.getAttribute('content') : null;
 });
@@ -5036,8 +5236,8 @@ function () {
       minify: false
     });
 
-    for (var i = 0; i < plugins.length; i++) {
-      this.plugins.use(plugins[i], {
+    for (var i = 0; i < plugins$1.length; i++) {
+      this.plugins.use(plugins$1[i], {
         queue: 'internal'
       });
     }
@@ -5225,7 +5425,7 @@ var create = function create(options) {
  * A global Jss instance.
  */
 
-var jss = create();
+create();
 
 var now = Date.now();
 var fnValuesNs = "fnValues" + now;
@@ -5290,6 +5490,8 @@ var functionPlugin = function functionPlugin() {
     }
   };
 };
+
+var functions = functionPlugin;
 
 var at = '@global';
 var atPrefix = '@global ';
@@ -5383,10 +5585,10 @@ function () {
   return GlobalPrefixedRule;
 }();
 
-var separatorRegExp = /\s*,\s*/g;
+var separatorRegExp$1 = /\s*,\s*/g;
 
 function addScope(selector, scope) {
-  var parts = selector.split(separatorRegExp);
+  var parts = selector.split(separatorRegExp$1);
   var scoped = '';
 
   for (var i = 0; i < parts.length; i++) {
@@ -5472,9 +5674,9 @@ function jssGlobal() {
   };
 }
 
-var separatorRegExp$1 = /\s*,\s*/g;
+var separatorRegExp = /\s*,\s*/g;
 var parentRegExp = /&/g;
-var refRegExp$1 = /\$([\w-]+)/g;
+var refRegExp = /\$([\w-]+)/g;
 /**
  * Convert nested rules to separate, remove them from original styles.
  *
@@ -5499,8 +5701,8 @@ function jssNested() {
   }
 
   function replaceParentRefs(nestedProp, parentProp) {
-    var parentSelectors = parentProp.split(separatorRegExp$1);
-    var nestedSelectors = nestedProp.split(separatorRegExp$1);
+    var parentSelectors = parentProp.split(separatorRegExp);
+    var nestedSelectors = nestedProp.split(separatorRegExp);
     var result = '';
 
     for (var i = 0; i < parentSelectors.length; i++) {
@@ -5555,7 +5757,7 @@ function jssNested() {
 
         if (!replaceRef) replaceRef = getReplaceRef(container, sheet); // Replace all $refs.
 
-        selector = selector.replace(refRegExp$1, replaceRef);
+        selector = selector.replace(refRegExp, replaceRef);
         container.addRule(selector, style[prop], _extends({}, options, {
           selector: selector
         }));
@@ -5584,19 +5786,19 @@ function jssNested() {
 /* eslint-disable no-var, prefer-template */
 var uppercasePattern = /[A-Z]/g;
 var msPattern = /^ms-/;
-var cache = {};
+var cache$2 = {};
 
 function toHyphenLower(match) {
   return '-' + match.toLowerCase()
 }
 
 function hyphenateStyleName(name) {
-  if (cache.hasOwnProperty(name)) {
-    return cache[name]
+  if (cache$2.hasOwnProperty(name)) {
+    return cache$2[name]
   }
 
   var hName = name.replace(uppercasePattern, toHyphenLower);
-  return (cache[name] = msPattern.test(hName) ? '-' + hName : hName)
+  return (cache$2[name] = msPattern.test(hName) ? '-' + hName : hName)
 }
 
 /**
@@ -6304,13 +6506,13 @@ var flex2009 = {
 // 'flex2009' going after 'flex2012'.
 // 'prefixed' going after 'unprefixed'
 
-var plugins$1 = [appearence, colorAdjust, mask, textOrientation, transform, transition, writingMode, userSelect, breakPropsOld, inlineLogicalOld, unprefixed, prefixed, scrollSnap, overscrollBehavior, flex2012, flex2009];
-var propertyDetectors = plugins$1.filter(function (p) {
+var plugins = [appearence, colorAdjust, mask, textOrientation, transform, transition, writingMode, userSelect, breakPropsOld, inlineLogicalOld, unprefixed, prefixed, scrollSnap, overscrollBehavior, flex2012, flex2009];
+var propertyDetectors = plugins.filter(function (p) {
   return p.supportedProperty;
 }).map(function (p) {
   return p.supportedProperty;
 });
-var noPrefill = plugins$1.filter(function (p) {
+var noPrefill = plugins.filter(function (p) {
   return p.noPrefill;
 }).reduce(function (a, p) {
   a.push.apply(a, _toConsumableArray(p.noPrefill));
@@ -6318,7 +6520,7 @@ var noPrefill = plugins$1.filter(function (p) {
 }, []);
 
 var el;
-var cache$1 = {};
+var cache = {};
 
 if (isBrowser) {
   el = document.createElement('p'); // We test every property on vendor prefix requirement.
@@ -6333,13 +6535,13 @@ if (isBrowser) {
 
   for (var key$1 in computed) {
     // eslint-disable-next-line no-restricted-globals
-    if (!isNaN(key$1)) cache$1[computed[key$1]] = computed[key$1];
+    if (!isNaN(key$1)) cache[computed[key$1]] = computed[key$1];
   } // Properties that cannot be correctly detected using the
   // cache prefill method.
 
 
   noPrefill.forEach(function (x) {
-    return delete cache$1[x];
+    return delete cache[x];
   });
 }
 /**
@@ -6361,8 +6563,8 @@ function supportedProperty(prop, options) {
   // For server-side rendering.
   if (!el) return prop; // Remove cache for benchmark tests or return property from the cache.
 
-  if (process.env.NODE_ENV !== 'benchmark' && cache$1[prop] != null) {
-    return cache$1[prop];
+  if (process.env.NODE_ENV !== 'benchmark' && cache[prop] != null) {
+    return cache[prop];
   } // Check if 'transition' or 'transform' natively supported in browser.
 
 
@@ -6372,9 +6574,9 @@ function supportedProperty(prop, options) {
 
 
   for (var i = 0; i < propertyDetectors.length; i++) {
-    cache$1[prop] = propertyDetectors[i](prop, el.style, options); // Break loop, if value found.
+    cache[prop] = propertyDetectors[i](prop, el.style, options); // Break loop, if value found.
 
-    if (cache$1[prop]) break;
+    if (cache[prop]) break;
   } // Reset styles for current property.
   // Firefox can even throw an error for invalid properties, e.g., "0".
 
@@ -6385,10 +6587,10 @@ function supportedProperty(prop, options) {
     return false;
   }
 
-  return cache$1[prop];
+  return cache[prop];
 }
 
-var cache$1$1 = {};
+var cache$1 = {};
 var transitionProperties = {
   transition: 1,
   'transition-property': 1,
@@ -6440,8 +6642,8 @@ function supportedValue(property, value) {
 
   var cacheKey = property + prefixedValue; // Remove cache for benchmark tests or return value from cache.
 
-  if (process.env.NODE_ENV !== 'benchmark' && cache$1$1[cacheKey] != null) {
-    return cache$1$1[cacheKey];
+  if (process.env.NODE_ENV !== 'benchmark' && cache$1[cacheKey] != null) {
+    return cache$1[cacheKey];
   } // IE can even throw an error in some cases, for e.g. style.content = 'bar'.
 
 
@@ -6450,7 +6652,7 @@ function supportedValue(property, value) {
     el$1.style[property] = prefixedValue;
   } catch (err) {
     // Return false if value not supported.
-    cache$1$1[cacheKey] = false;
+    cache$1[cacheKey] = false;
     return false;
   } // If 'transition' or 'transition-property' property.
 
@@ -6466,7 +6668,7 @@ function supportedValue(property, value) {
     el$1.style[property] = prefixedValue; // Return false if value not supported.
 
     if (el$1.style[property] === '') {
-      cache$1$1[cacheKey] = false;
+      cache$1[cacheKey] = false;
       return false;
     }
   } // Reset styles for current property.
@@ -6474,8 +6676,8 @@ function supportedValue(property, value) {
 
   el$1.style[property] = ''; // Write current value to cache.
 
-  cache$1$1[cacheKey] = prefixedValue;
-  return cache$1$1[cacheKey];
+  cache$1[cacheKey] = prefixedValue;
+  return cache$1[cacheKey];
 }
 
 /**
@@ -6562,7 +6764,7 @@ function jssPropsSort() {
 
 function jssPreset() {
   return {
-    plugins: [functionPlugin(), jssGlobal(), jssNested(), camelCase(), defaultUnit(), // Disable the vendor prefixer server-side, it does nothing.
+    plugins: [functions(), jssGlobal(), jssNested(), camelCase(), defaultUnit(), // Disable the vendor prefixer server-side, it does nothing.
     // This way, we can get a performance boost.
     // In the documentation, we are using `autoprefixer` to solve this problem.
     typeof window === 'undefined' ? null : jssVendorPrefixer(), jssPropsSort()]
@@ -6627,25 +6829,28 @@ var multiKeyStore = {
     subCache.delete(key2);
   }
 };
+var multiKeyStore$1 = multiKeyStore;
 
-var ThemeContext = React.createContext(null);
+var ThemeContext = React__default.createContext(null);
 
 if (process.env.NODE_ENV !== 'production') {
   ThemeContext.displayName = 'ThemeContext';
 }
 
-function useTheme() {
-  var theme = React.useContext(ThemeContext);
+var ThemeContext$1 = ThemeContext;
+
+function useTheme$1() {
+  var theme = React__default.useContext(ThemeContext$1);
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useDebugValue(theme);
+    React__default.useDebugValue(theme);
   }
 
   return theme;
 }
 
-var jss$1 = create(jssPreset()); // Use a singleton or the provided one by the context.
+var jss = create(jssPreset()); // Use a singleton or the provided one by the context.
 //
 // The counter-based approach doesn't tolerate any mistake.
 // It's much safer to use the same counter everywhere.
@@ -6656,12 +6861,12 @@ var sheetsManager = new Map();
 var defaultOptions = {
   disableGeneration: false,
   generateClassName: generateClassName,
-  jss: jss$1,
+  jss: jss,
   sheetsCache: null,
   sheetsManager: sheetsManager,
   sheetsRegistry: null
 };
-var StylesContext = React.createContext(defaultOptions);
+var StylesContext = React__default.createContext(defaultOptions);
 
 if (process.env.NODE_ENV !== 'production') {
   StylesContext.displayName = 'StylesContext';
@@ -6676,7 +6881,7 @@ function StylesProvider(props) {
       disableGeneration = _props$disableGenerat === void 0 ? false : _props$disableGenerat,
       localOptions = _objectWithoutProperties(props, ["children", "injectFirst", "disableGeneration"]);
 
-  var outerOptions = React.useContext(StylesContext);
+  var outerOptions = React__default.useContext(StylesContext);
 
   var context = _extends({}, outerOptions, {
     disableGeneration: disableGeneration
@@ -6713,7 +6918,7 @@ function StylesProvider(props) {
     });
   }
 
-  return /*#__PURE__*/React.createElement(StylesContext.Provider, {
+  return /*#__PURE__*/React__default.createElement(StylesContext.Provider, {
     value: context
   }, children);
 }
@@ -6808,12 +7013,13 @@ function increment() {
 
 // We use the same empty object to ref count the styles that don't need a theme object.
 var noopTheme = {};
+var noopTheme$1 = noopTheme;
 
 function getStylesCreator(stylesOrCreator) {
   var themingEnabled = typeof stylesOrCreator === 'function';
 
   if (process.env.NODE_ENV !== 'production') {
-    if (_typeof(stylesOrCreator) !== 'object' && !themingEnabled) {
+    if (_typeof$1(stylesOrCreator) !== 'object' && !themingEnabled) {
       console.error(['Material-UI: The `styles` argument provided is invalid.', 'You need to provide a function generating the styles or a styles object.'].join('\n'));
     }
   }
@@ -6826,7 +7032,7 @@ function getStylesCreator(stylesOrCreator) {
         styles = themingEnabled ? stylesOrCreator(theme) : stylesOrCreator;
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {
-          if (themingEnabled === true && theme === noopTheme) {
+          if (themingEnabled === true && theme === noopTheme$1) {
             // TODO: prepend error message/name instead
             console.error(['Material-UI: The `styles` argument provided is invalid.', 'You are providing a function without a theme in the context.', 'One of the parent elements needs to use a ThemeProvider.'].join('\n'));
           }
@@ -6913,7 +7119,7 @@ function attach(_ref2, props) {
     return;
   }
 
-  var sheetManager = multiKeyStore.get(stylesOptions.sheetsManager, stylesCreator, theme);
+  var sheetManager = multiKeyStore$1.get(stylesOptions.sheetsManager, stylesCreator, theme);
 
   if (!sheetManager) {
     sheetManager = {
@@ -6921,7 +7127,7 @@ function attach(_ref2, props) {
       staticSheet: null,
       dynamicStyles: null
     };
-    multiKeyStore.set(stylesOptions.sheetsManager, stylesCreator, theme, sheetManager);
+    multiKeyStore$1.set(stylesOptions.sheetsManager, stylesCreator, theme, sheetManager);
   }
 
   var options = _extends({}, stylesCreator.options, stylesOptions, {
@@ -6936,7 +7142,7 @@ function attach(_ref2, props) {
     var staticSheet;
 
     if (stylesOptions.sheetsCache) {
-      staticSheet = multiKeyStore.get(stylesOptions.sheetsCache, stylesCreator, theme);
+      staticSheet = multiKeyStore$1.get(stylesOptions.sheetsCache, stylesCreator, theme);
     }
 
     var styles = stylesCreator.create(theme, name);
@@ -6948,7 +7154,7 @@ function attach(_ref2, props) {
       staticSheet.attach();
 
       if (stylesOptions.sheetsCache) {
-        multiKeyStore.set(stylesOptions.sheetsCache, stylesCreator, theme, staticSheet);
+        multiKeyStore$1.set(stylesOptions.sheetsCache, stylesCreator, theme, staticSheet);
       }
     }
 
@@ -6982,7 +7188,7 @@ function attach(_ref2, props) {
   sheetManager.refs += 1;
 }
 
-function update(_ref3, props) {
+function update$1(_ref3, props) {
   var state = _ref3.state;
 
   if (state.dynamicSheet) {
@@ -7000,12 +7206,12 @@ function detach(_ref4) {
     return;
   }
 
-  var sheetManager = multiKeyStore.get(stylesOptions.sheetsManager, stylesCreator, theme);
+  var sheetManager = multiKeyStore$1.get(stylesOptions.sheetsManager, stylesCreator, theme);
   sheetManager.refs -= 1;
   var sheetsRegistry = stylesOptions.sheetsRegistry;
 
   if (sheetManager.refs === 0) {
-    multiKeyStore.delete(stylesOptions.sheetsManager, stylesCreator, theme);
+    multiKeyStore$1.delete(stylesOptions.sheetsManager, stylesCreator, theme);
     stylesOptions.jss.removeStyleSheet(sheetManager.staticSheet);
 
     if (sheetsRegistry) {
@@ -7023,10 +7229,10 @@ function detach(_ref4) {
 }
 
 function useSynchronousEffect(func, values) {
-  var key = React.useRef([]);
+  var key = React__default.useRef([]);
   var output; // Store "generation" key. Just returns a new object every time
 
-  var currentKey = React.useMemo(function () {
+  var currentKey = React__default.useMemo(function () {
     return {};
   }, values); // eslint-disable-line react-hooks/exhaustive-deps
   // "the first render", or "memo dropped the value"
@@ -7036,7 +7242,7 @@ function useSynchronousEffect(func, values) {
     output = func();
   }
 
-  React.useEffect(function () {
+  React__default.useEffect(function () {
     return function () {
       if (output) {
         output();
@@ -7046,14 +7252,14 @@ function useSynchronousEffect(func, values) {
   );
 }
 
-function makeStyles(stylesOrCreator) {
+function makeStyles$1(stylesOrCreator) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   var name = options.name,
       classNamePrefixOption = options.classNamePrefix,
       Component = options.Component,
       _options$defaultTheme = options.defaultTheme,
-      defaultTheme = _options$defaultTheme === void 0 ? noopTheme : _options$defaultTheme,
+      defaultTheme = _options$defaultTheme === void 0 ? noopTheme$1 : _options$defaultTheme,
       stylesOptions2 = _objectWithoutProperties(options, ["name", "classNamePrefix", "Component", "defaultTheme"]);
 
   var stylesCreator = getStylesCreator(stylesOrCreator);
@@ -7067,12 +7273,12 @@ function makeStyles(stylesOrCreator) {
 
   var useStyles = function useStyles() {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var theme = useTheme() || defaultTheme;
+    var theme = useTheme$1() || defaultTheme;
 
-    var stylesOptions = _extends({}, React.useContext(StylesContext), stylesOptions2);
+    var stylesOptions = _extends({}, React__default.useContext(StylesContext), stylesOptions2);
 
-    var instance = React.useRef();
-    var shouldUpdate = React.useRef();
+    var instance = React__default.useRef();
+    var shouldUpdate = React__default.useRef();
     useSynchronousEffect(function () {
       var current = {
         name: name,
@@ -7088,9 +7294,9 @@ function makeStyles(stylesOrCreator) {
         detach(current);
       };
     }, [theme, stylesCreator]);
-    React.useEffect(function () {
+    React__default.useEffect(function () {
       if (shouldUpdate.current) {
-        update(instance.current, props);
+        update$1(instance.current, props);
       }
 
       shouldUpdate.current = true;
@@ -7099,7 +7305,7 @@ function makeStyles(stylesOrCreator) {
 
     if (process.env.NODE_ENV !== 'production') {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      React.useDebugValue(classes);
+      React__default.useDebugValue(classes);
     }
 
     return classes;
@@ -7148,6 +7354,234 @@ function clsx () {
 	}
 	return str;
 }
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
+Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
+function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}var AsyncMode=l;var ConcurrentMode=m;var ContextConsumer=k;var ContextProvider=h;var Element=c;var ForwardRef=n;var Fragment=e;var Lazy=t;var Memo=r;var Portal=d;
+var Profiler=g;var StrictMode=f;var Suspense=p;var isAsyncMode=function(a){return A(a)||z(a)===l};var isConcurrentMode=A;var isContextConsumer=function(a){return z(a)===k};var isContextProvider=function(a){return z(a)===h};var isElement=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c};var isForwardRef=function(a){return z(a)===n};var isFragment=function(a){return z(a)===e};var isLazy=function(a){return z(a)===t};
+var isMemo=function(a){return z(a)===r};var isPortal=function(a){return z(a)===d};var isProfiler=function(a){return z(a)===g};var isStrictMode=function(a){return z(a)===f};var isSuspense=function(a){return z(a)===p};
+var isValidElementType=function(a){return "string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};var typeOf=z;
+
+var reactIs_production_min = {
+	AsyncMode: AsyncMode,
+	ConcurrentMode: ConcurrentMode,
+	ContextConsumer: ContextConsumer,
+	ContextProvider: ContextProvider,
+	Element: Element,
+	ForwardRef: ForwardRef,
+	Fragment: Fragment,
+	Lazy: Lazy,
+	Memo: Memo,
+	Portal: Portal,
+	Profiler: Profiler,
+	StrictMode: StrictMode,
+	Suspense: Suspense,
+	isAsyncMode: isAsyncMode,
+	isConcurrentMode: isConcurrentMode,
+	isContextConsumer: isContextConsumer,
+	isContextProvider: isContextProvider,
+	isElement: isElement,
+	isForwardRef: isForwardRef,
+	isFragment: isFragment,
+	isLazy: isLazy,
+	isMemo: isMemo,
+	isPortal: isPortal,
+	isProfiler: isProfiler,
+	isStrictMode: isStrictMode,
+	isSuspense: isSuspense,
+	isValidElementType: isValidElementType,
+	typeOf: typeOf
+};
+
+var reactIs_development = createCommonjsModule(function (module, exports) {
+
+
+
+if (process.env.NODE_ENV !== "production") {
+  (function() {
+
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+// (unstable) APIs that have been removed. Can we remove the symbols?
+
+var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+
+function isValidElementType(type) {
+  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_ASYNC_MODE_TYPE:
+          case REACT_CONCURRENT_MODE_TYPE:
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+} // AsyncMode is deprecated along with isAsyncMode
+
+var AsyncMode = REACT_ASYNC_MODE_TYPE;
+var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+    }
+  }
+
+  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+}
+function isConcurrentMode(object) {
+  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.AsyncMode = AsyncMode;
+exports.ConcurrentMode = ConcurrentMode;
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+});
+
+var reactIs = createCommonjsModule(function (module) {
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = reactIs_production_min;
+} else {
+  module.exports = reactIs_development;
+}
+});
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -7206,7 +7640,7 @@ function getStatics(component) {
 
 var defineProperty = Object.defineProperty;
 var getOwnPropertyNames = Object.getOwnPropertyNames;
-var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 var getPrototypeOf = Object.getPrototypeOf;
 var objectPrototype = Object.prototype;
@@ -7223,8 +7657,8 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 
     var keys = getOwnPropertyNames(sourceComponent);
 
-    if (getOwnPropertySymbols$1) {
-      keys = keys.concat(getOwnPropertySymbols$1(sourceComponent));
+    if (getOwnPropertySymbols) {
+      keys = keys.concat(getOwnPropertySymbols(sourceComponent));
     }
 
     var targetStatics = getStatics(targetComponent);
@@ -7252,7 +7686,7 @@ var hoistNonReactStatics_cjs = hoistNonReactStatics;
 // It does not modify the component passed to it;
 // instead, it returns a new component, with a `classes` property.
 
-var withStyles = function withStyles(stylesOrCreator) {
+var withStyles$1 = function withStyles(stylesOrCreator) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return function (Component) {
     var defaultTheme = options.defaultTheme,
@@ -7280,15 +7714,15 @@ var withStyles = function withStyles(stylesOrCreator) {
       }
     }
 
-    var useStyles = makeStyles(stylesOrCreator, _extends({
+    var useStyles = makeStyles$1(stylesOrCreator, _extends({
       defaultTheme: defaultTheme,
       Component: Component,
       name: name || Component.displayName,
       classNamePrefix: classNamePrefix
     }, stylesOptions));
-    var WithStyles = /*#__PURE__*/React.forwardRef(function WithStyles(props, ref) {
-      var classesProp = props.classes,
-          innerRef = props.innerRef,
+    var WithStyles = /*#__PURE__*/React__default.forwardRef(function WithStyles(props, ref) {
+      props.classes;
+          var innerRef = props.innerRef,
           other = _objectWithoutProperties(props, ["classes", "innerRef"]); // The wrapper receives only user supplied props, which could be a subset of
       // the actual props Component might receive due to merging with defaultProps.
       // So copying it here would give us the same result in the wrapper as well.
@@ -7301,7 +7735,7 @@ var withStyles = function withStyles(stylesOrCreator) {
       if (typeof name === 'string' || withTheme) {
         // name and withTheme are invariant in the outer scope
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        theme = useTheme() || defaultTheme;
+        theme = useTheme$1() || defaultTheme;
 
         if (name) {
           more = getThemeProps({
@@ -7318,7 +7752,7 @@ var withStyles = function withStyles(stylesOrCreator) {
         }
       }
 
-      return /*#__PURE__*/React.createElement(Component, _extends({
+      return /*#__PURE__*/React__default.createElement(Component, _extends({
         ref: innerRef || ref,
         classes: classes
       }, more));
@@ -7362,29 +7796,32 @@ var withStyles = function withStyles(stylesOrCreator) {
   };
 };
 
-var defaultTheme = createMuiTheme();
+var withStylesWithoutDefault = withStyles$1;
 
-function makeStyles$1(stylesOrCreator) {
+var defaultTheme = createMuiTheme();
+var defaultTheme$1 = defaultTheme;
+
+function makeStyles(stylesOrCreator) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return makeStyles(stylesOrCreator, _extends({
-    defaultTheme: defaultTheme
+  return makeStyles$1(stylesOrCreator, _extends({
+    defaultTheme: defaultTheme$1
   }, options));
 }
 
-function useTheme$1() {
-  var theme = useTheme() || defaultTheme;
+function useTheme() {
+  var theme = useTheme$1() || defaultTheme$1;
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useDebugValue(theme);
+    React__default.useDebugValue(theme);
   }
 
   return theme;
 }
 
-function withStyles$1(stylesOrCreator, options) {
-  return withStyles(stylesOrCreator, _extends({
-    defaultTheme: defaultTheme
+function withStyles(stylesOrCreator, options) {
+  return withStylesWithoutDefault(stylesOrCreator, _extends({
+    defaultTheme: defaultTheme$1
   }, options));
 }
 
@@ -7544,7 +7981,7 @@ var defaultVariantMapping = {
   body1: 'p',
   body2: 'p'
 };
-var Typography = /*#__PURE__*/forwardRef(function Typography(props, ref) {
+var Typography = /*#__PURE__*/React.forwardRef(function Typography(props, ref) {
   var _props$align = props.align,
       align = _props$align === void 0 ? 'inherit' : _props$align,
       classes = props.classes,
@@ -7567,7 +8004,7 @@ var Typography = /*#__PURE__*/forwardRef(function Typography(props, ref) {
       other = _objectWithoutProperties(props, ["align", "classes", "className", "color", "component", "display", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"]);
 
   var Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
-  return /*#__PURE__*/createElement(Component, _extends({
+  return /*#__PURE__*/React.createElement(Component, _extends({
     className: clsx(classes.root, className, variant !== 'inherit' && classes[variant], color !== 'initial' && classes["color".concat(capitalize(color))], noWrap && classes.noWrap, gutterBottom && classes.gutterBottom, paragraph && classes.paragraph, align !== 'inherit' && classes["align".concat(capitalize(align))], display !== 'initial' && classes["display".concat(capitalize(display))]),
     ref: ref
   }, other));
@@ -7644,96 +8081,9 @@ process.env.NODE_ENV !== "production" ? Typography.propTypes = {
    */
   variantMapping: propTypes.object
 } : void 0;
-var Typography$1 = withStyles$1(styles, {
+var Typography$1 = withStyles(styles, {
   name: 'MuiTypography'
 })(Typography);
-
-const __DEV__ = process.env.NODE_ENV === "development";
-const __TEST__ = process.env.NODE_ENV === "test";
-const fallbackLng = "en-US";
-var apiDefaults;
-(function (apiDefaults) {
-    apiDefaults["settings"] = "settings";
-    apiDefaults["owner"] = "owner";
-    apiDefaults["translations"] = "translations";
-})(apiDefaults || (apiDefaults = {}));
-const defaultState = {
-    initialized: false,
-    failedToFetch: false,
-    portalName: "",
-    clientName: "",
-    supportURL: "",
-    documentationURL: "",
-    providerSignupURL: "",
-    sso: [],
-    socialURLs: [],
-    i18nOptions: [],
-    infra: {
-        hydra: "",
-        sandbox: "",
-        remoteAPI: "",
-    },
-    ownerInfo: {
-        name: "",
-        description: "",
-        vat: "",
-        website: "",
-        logo: "",
-        org_code: "",
-        app_count: 0,
-        tosUrl: "",
-        privacyUrl: "",
-        youtubeUrl: "",
-        websiteUrl: "",
-        supportUrl: "",
-    },
-    pages: {
-        landing: {
-            components: [],
-        },
-    },
-    navigation: {
-        title: {
-            route: "/",
-            iconFallbackName: "circle",
-        },
-        admin: {
-            tabs: [],
-            events: {
-                afterLogin: "",
-            },
-        },
-        organizationOwner: {
-            tabs: [],
-            events: {
-                afterLogin: "",
-            },
-        },
-        developer: {
-            tabs: [],
-            events: {
-                afterLogin: "",
-            },
-        },
-        baseUser: {
-            tabs: [],
-            events: {
-                afterLogin: "",
-            },
-        },
-        anonymous: {
-            tabs: [],
-            events: {
-                afterLogin: "",
-            },
-        },
-    },
-};
-
-const ConfigContext = createContext({
-    ...defaultState,
-    provider: false,
-});
 
 const coreNS = "translation";
 i18n
@@ -7761,7 +8111,7 @@ i18n
     },
 });
 
-makeStyles$1((theme) => ({
+makeStyles((theme) => ({
     container: {
         // We can still use theme in this context - the defaults will be the mui-ui ones
         backgroundColor: theme.palette.background.default,
@@ -7779,31 +8129,18 @@ makeStyles$1((theme) => ({
     },
 }));
 
-var useStyles = makeStyles$1(function (theme) { return ({
+var useStyles = makeStyles(function (theme) { return ({
     pageContentContainer: {
         margin: '0 auto',
         width: 'calc(100% - 24px)',
     },
 }); });
 
-var useStyles$1 = makeStyles$1(function (theme) { return ({}); });
-
-var JobList = function (props) {
-    var classes = useStyles$1();
-    var trans = useTranslation();
-    var palette = useTheme$1().palette;
-    var t = function (str) {
-        return trans.t("extensions.reporting." + str);
-    };
-    return (React.createElement("div", null,
-        React.createElement(Typography$1, { variant: "h2" }, t('jobs.title')),
-        props.jobs.length));
-};
-
-var ReportingUser = function (props) {
+var ReportingUser$1 = function (props) {
     var classes = useStyles();
     var trans = useTranslation();
-    var palette = useTheme$1().palette;
+    var typography = useTheme().typography;
+    console.log('typography - overview', typography);
     useEffect(function () {
         if (props.jobs.length === 0) {
             props.getJobs();
@@ -7812,10 +8149,38 @@ var ReportingUser = function (props) {
     var t = function (str) {
         return trans.t("extensions.reporting." + str);
     };
-    return (React.createElement("main", { className: "page-container " + classes.pageContentContainer },
-        React.createElement(Typography$1, { variant: "h1" }, t('user.title')),
-        React.createElement("p", null, "This page was dynamically added by an extensions."),
-        React.createElement(JobList, { jobs: props.jobs })));
+    return (React__default.createElement("main", { className: "page-container " + classes.pageContentContainer },
+        React__default.createElement(Typography$1, { variant: "h2" }, t('user.title')),
+        React__default.createElement("p", null, "Overview user")));
+};
+
+var mapStateToProps$1 = function (_a) {
+    var reporting = _a.reporting;
+    return ({
+        jobs: reporting.jobs,
+    });
+};
+var mapDispatchToProps$1 = function (dispatch) { return ({
+    getJobs: function () { return dispatch(getJobs()); },
+}); };
+var ReportingUser = connect(mapStateToProps$1, mapDispatchToProps$1)(ReportingUser$1);
+
+var ReportingService$1 = function (props) {
+    var classes = useStyles();
+    var trans = useTranslation();
+    var typography = useTheme().typography;
+    console.log('typography - services', typography);
+    useEffect(function () {
+        if (props.jobs.length === 0) {
+            props.getJobs();
+        }
+    }, []);
+    var t = function (str) {
+        return trans.t("extensions.reporting." + str);
+    };
+    return (React__default.createElement("main", { className: "page-container " + classes.pageContentContainer },
+        React__default.createElement("h1", null, t('service.title')),
+        React__default.createElement("p", null, "Overview services")));
 };
 
 var mapStateToProps = function (_a) {
@@ -7827,18 +8192,14 @@ var mapStateToProps = function (_a) {
 var mapDispatchToProps = function (dispatch) { return ({
     getJobs: function () { return dispatch(getJobs()); },
 }); };
-var ReportingUser$1 = connect(mapStateToProps, mapDispatchToProps)(ReportingUser);
-
-var ReportingService = function () { return (React.createElement("div", null,
-    React.createElement("h1", null, "Reporting - Service"),
-    React.createElement("p", null, "This page was dynamically added by an extensions."))); };
+var ReportingService = connect(mapStateToProps, mapDispatchToProps)(ReportingService$1);
 
 var pagesConfig = [
     {
         auth: true,
         path: '/reporting',
         exact: true,
-        component: ReportingUser$1,
+        component: ReportingUser,
     },
     {
         auth: true,
@@ -7855,7 +8216,7 @@ var sections = {};
 var hookSections = function (section, props) {
     var Component = sections[section];
     if (Component) {
-        return React.createElement(Component, __assign({}, props));
+        return React__default.createElement(Component, __assign({}, props));
     }
     return null;
 };
@@ -7866,9 +8227,7 @@ var hooks = {
     sections: hookSections,
 };
 
-var baseConfig = {
-    someKey: 'Base Value',
-};
+var baseConfig = {};
 
 var values$1 = __assign({}, baseConfig);
 var config = function () { return values$1; };
@@ -7876,10 +8235,10 @@ config.set = function (conf) {
     values$1 = __assign(__assign({}, values$1), conf);
 };
 
-var values$2 = {};
-var core = function () { return values$2; };
+var values = {};
+var core = function () { return values; };
 core.set = function (core) {
-    values$2 = __assign(__assign({}, values$2), core);
+    values = __assign(__assign({}, values), core);
 };
 
 var immutabilityHelper = createCommonjsModule(function (module, exports) {
@@ -8134,7 +8493,7 @@ function invariantMapOrSet(target, command) {
 }
 });
 
-var update$1 = /*@__PURE__*/getDefaultExportFromCjs(immutabilityHelper);
+var update = /*@__PURE__*/getDefaultExportFromCjs(immutabilityHelper);
 
 /** Initial state */
 var initialState = {
@@ -8144,7 +8503,7 @@ function reportingReducer(state, action) {
     if (state === void 0) { state = initialState; }
     switch (action.type) {
         case SET_JOBS: {
-            return update$1(state, {
+            return update(state, {
                 jobs: { $set: action.jobs },
             });
         }
@@ -8560,7 +8919,7 @@ var callUserReportApi = function (format) {
 };
 
 function getJobsSaga(action) {
-    var jobs, error_1;
+    var jobs;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -8573,7 +8932,7 @@ function getJobsSaga(action) {
                 _a.sent();
                 return [3 /*break*/, 4];
             case 3:
-                error_1 = _a.sent();
+                _a.sent();
                 console.error('Could not fetch user reporting jobs');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
@@ -8617,5 +8976,5 @@ var ReportingExtension = /** @class */ (function (_super) {
     return ReportingExtension;
 }(v1.Extension));
 
-export default ReportingExtension;
+export { ReportingExtension as default };
 //# sourceMappingURL=index.esm.js.map

@@ -1,5 +1,3 @@
-export declare type ReportingExtensionConfig = {
-    someKey: string;
-};
+export declare type ReportingExtensionConfig = {};
 declare const baseConfig: ReportingExtensionConfig;
 export default baseConfig;
