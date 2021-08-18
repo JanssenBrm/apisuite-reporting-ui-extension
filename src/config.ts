@@ -1,8 +1,8 @@
-export type ExtensionConfig = {
+export type ReportingExtensionConfig = {
   someKey: string
 }
 
-const baseConfig: ExtensionConfig = {
+const baseConfig: ReportingExtensionConfig = {
   someKey: 'Base Value',
 }
 

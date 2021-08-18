@@ -1,6 +1,6 @@
-import { HookPages, PageEntry } from 'apisuite-extension-ui-types'
 import ReportingUser from 'pages/ReportingUser'
 import ReportingService from 'pages/ReportingService'
+import {HookPages, PageEntry} from "@apisuite/extension-ui-types";
 
 const pagesConfig: PageEntry[] = [
   {

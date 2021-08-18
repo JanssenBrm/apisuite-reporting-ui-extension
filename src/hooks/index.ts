@@ -1,5 +1,4 @@
-import { Hooks } from 'apisuite-extension-ui-types'
-
+import { Hooks } from '@apisuite/extension-ui-types'
 import menu from './menu'
 import pages from './pages'
 import sections from './sections'

@@ -1,4 +1,4 @@
-import { Menus, MenuEntry, HookMenu } from 'apisuite-extension-ui-types'
+import {HookMenu, MenuEntry, Menus} from "@apisuite/extension-ui-types";
 import {BASE_URI} from "helpers/constants";
 
 type MenuConfig = {
