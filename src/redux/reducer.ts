@@ -1,6 +1,6 @@
 import update from 'immutability-helper'
 import { ReportingStore } from './types'
-import { ReportingActions, SET_JOBS, SetJobs } from './actions'
+import { ReportingActions, SET_JOBS } from './actions'
 
 /** Initial state */
 const initialState: ReportingStore = {
@@ -14,7 +14,7 @@ export default function reportingReducer(
   switch (action.type) {
     case SET_JOBS: {
       return update(state, {
-        jobs: { $set: (action as SetJobs).jobs },
+        jobs: { $set: action.jobs },
       })
     }
 

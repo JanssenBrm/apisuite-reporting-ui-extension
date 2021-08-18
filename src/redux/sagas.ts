@@ -6,9 +6,7 @@ import { getUserReportingJobs } from 'services/Reporting'
 export function* getJobsSaga(action: GetJobs) {
   try {
     const jobs = yield getUserReportingJobs()
-
-    console.log('response', jobs)
-    yield put(setJobs(jobs))
+    yield put(setJobs(jobs || []))
   } catch (error) {
     console.error('Could not fetch user reporting jobs')
   }

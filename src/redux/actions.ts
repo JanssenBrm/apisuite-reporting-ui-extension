@@ -1,7 +1,7 @@
 import { Action } from 'redux'
 
 export const SET_JOBS = 'reporting/set-jobs'
-export const GET_JOBS = 'reporting/set-jobs'
+export const GET_JOBS = 'reporting/get-jobs'
 
 // ACTION INTERFACES
 export interface SetJobs extends Action {
